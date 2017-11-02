@@ -17,57 +17,29 @@ def findMinCost(bookNum):
         cost=min(
                 8*5*(1-0.25)+findMinCost([Y1-1,Y2-1,Y3-1,Y4-1,Y5-1]),
                 8*4*(1-0.20)+findMinCost([Y1-1,Y2-1,Y3-1,Y4-1,Y5]),
-                8*4*(1-0.20)+findMinCost([Y1-1,Y2-1,Y3-1,Y4,Y5-1]),
-                8*4*(1-0.20)+findMinCost([Y1-1,Y2-1,Y3,Y4-1,Y5-1]),
-                8*4*(1-0.20)+findMinCost([Y1-1,Y2,Y3-1,Y4-1,Y5-1]),
-                8*4*(1-0.20)+findMinCost([Y1,Y2-1,Y3-1,Y4-1,Y5-1]),
                 8*3*(1-0.10)+findMinCost([Y1-1,Y2-1,Y3-1,Y4,Y5]),
-                8*3*(1-0.10)+findMinCost([Y1-1,Y2-1,Y3,Y4-1,Y5]),
-                8*3*(1-0.10)+findMinCost([Y1-1,Y2-1,Y3,Y4,Y5-1]),
-                8*3*(1-0.10)+findMinCost([Y1-1,Y2,Y3-1,Y4-1,Y5]),
-                8*3*(1-0.10)+findMinCost([Y1-1,Y2,Y3-1,Y4,Y5-1]),
-                8*3*(1-0.10)+findMinCost([Y1-1,Y2,Y3,Y4-1,Y5-1]),
-                8*3*(1-0.10)+findMinCost([Y1,Y2-1,Y3-1,Y4-1,Y5]),
-                8*3*(1-0.10)+findMinCost([Y1,Y2-1,Y3-1,Y4,Y5-1]),
-                8*3*(1-0.10)+findMinCost([Y1,Y2-1,Y3,Y4-1,Y5-1]),
-                8*3*(1-0.10)+findMinCost([Y1,Y2,Y3-1,Y4-1,Y5-1]),
                 8*2*(1-0.05)+findMinCost([Y1-1,Y2-1,Y3,Y4,Y5]),
-                8*2*(1-0.05)+findMinCost([Y1-1,Y2,Y3-1,Y4,Y5]),
-                8*2*(1-0.05)+findMinCost([Y1-1,Y2,Y3,Y4-1,Y5]),
-                8*2*(1-0.05)+findMinCost([Y1-1,Y2,Y3,Y4,Y5-1]),
-                8*2*(1-0.05)+findMinCost([Y1,Y2-1,Y3-1,Y4,Y5]),
-                8*2*(1-0.05)+findMinCost([Y1,Y2-1,Y3,Y4-1,Y5]),
-                8*2*(1-0.05)+findMinCost([Y1,Y2-1,Y3,Y4,Y5-1]),
-                8*2*(1-0.05)+findMinCost([Y1,Y2,Y3-1,Y4-1,Y5]),
-                8*2*(1-0.05)+findMinCost([Y1,Y2,Y3-1,Y4,Y5-1]),
-                8*2*(1-0.05)+findMinCost([Y1,Y2,Y3,Y4-1,Y5-1])
+                8.0+findMinCost([Y1-1,Y2,Y3,Y4,Y5])
                 )
     elif Y4>=1:
         # print 'y4'
         cost=min(
                 8*4*(1-0.20)+findMinCost([Y1-1,Y2-1,Y3-1,Y4-1,0]),
                 8*3*(1-0.10)+findMinCost([Y1-1,Y2-1,Y3-1,Y4,0]),
-                8*3*(1-0.10)+findMinCost([Y1-1,Y2-1,Y3,Y4-1,0]),
-                8*3*(1-0.10)+findMinCost([Y1-1,Y2,Y3-1,Y4-1,0]),
-                8*3*(1-0.10)+findMinCost([Y1,Y2-1,Y3-1,Y4-1,0]),
                 8*2*(1-0.05)+findMinCost([Y1-1,Y2-1,Y3,Y4,0]),
-                8*2*(1-0.05)+findMinCost([Y1-1,Y2,Y3-1,Y4,0]),
-                8*2*(1-0.05)+findMinCost([Y1-1,Y2,Y3,Y4-1,0]),
-                8*2*(1-0.05)+findMinCost([Y1,Y2-1,Y3-1,Y4,0]),
-                8*2*(1-0.05)+findMinCost([Y1,Y2-1,Y3,Y4-1,0]),
-                8*2*(1-0.05)+findMinCost([Y1,Y2,Y3-1,Y4-1,0])
+                8.0+findMinCost([Y1-1,Y2,Y3,Y4,Y5])
                 )
     elif Y3>=1:
         # print 'y3'
         cost=min(
                 8*3*(1-0.10)+findMinCost([Y1-1,Y2-1,Y3-1,0,0]),
                 8*2*(1-0.05)+findMinCost([Y1-1,Y2-1,Y3,0,0]),
-                8*2*(1-0.05)+findMinCost([Y1-1,Y2,Y3-1,0,0]),
-                8*2*(1-0.05)+findMinCost([Y1,Y2-1,Y3-1,0,0])
+                8.0+findMinCost([Y1-1,Y2,Y3,0,0])
                 )
     elif Y2>=1:
         # print 'y2'
-        cost=8*2*(1-0.05)+findMinCost([Y1-1,Y2-1,0,0,0])
+        cost=min(8*2*(1-0.05)+findMinCost([Y1-1,Y2-1,0,0,0]),
+                 8.0+findMinCost([Y1-1,Y2,0,0,0]))
     elif Y1>=1:
         cost=8*Y1
     else:#0,0,0,0,0
@@ -89,18 +61,19 @@ def getBookNum(line):
         elif line[x] == '5':
             bookNum[4] = bookNum[4] + 1
 
-    print bookNum
+    # print bookNum
     return bookNum
 
 def GetAllMinCost(file_path):
     with open(file_path, 'r') as fp:
         linenum = 0
         for line in fp:
-            print line
+            # print line
             if (linenum == 0):
                 linenum = linenum + 1
                 continue
             bookNum = getBookNum(line)
+            print findMinCost(bookNum)
             # print "s"
             # print line
 
@@ -114,5 +87,5 @@ def GetAllMinCost(file_path):
 if __name__ == '__main__':
     # print findMinCost([3,2,1,4,5])
     # print findMinCost([2,2,2,1,1]) #51.2
-    print findMinCost([1,2,3,3,0]) #29.6
-    # GetAllMinCost('DaoMuBook_small_1509165671830')
+    # print findMinCost([1,1,2,0,0]) #29.6//1233
+    GetAllMinCost('DaoMuBook_small_1509165671830')
