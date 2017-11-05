@@ -5,12 +5,11 @@ def findMinCost(booklist):
 
     Y1,Y2,Y3,Y4,Y5=booklist[0],booklist[1],booklist[2],booklist[3],booklist[4]
     cost = 0.0
-    specialBook = min(Y3 - Y5,Y3 - Y4)
+    specialBook = Y3 - Y4
     if specialBook > 0 and Y5 >= 1 and (Y3 - specialBook*2)>0:
         #5+3
         # print 'tmp',Y1-specialBook*2,Y2-specialBook*2,Y3-specialBook*2,Y4-specialBook,Y5-specialBook
         cost=8*(1-0.20)*(specialBook*8)+findMinCost([Y1-specialBook*2,Y2-specialBook*2,Y3-specialBook*2,Y4-specialBook,Y5-specialBook])
-
     else:
         if Y5>=1:
             # print 'y5'
